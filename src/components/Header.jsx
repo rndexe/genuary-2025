@@ -1,7 +1,12 @@
 import { useLocation } from 'wouter'
+import { useState, useEffect } from 'react'
 
 export default function Header() {
   const [location] = useLocation()
+
+  const dateText = useTypewriter(`Jan ${location.slice(1)}`, 0, 50)
+  const description = useTypewriter(prompts[location], 500, 50)
+
   return (
     <div
       style={{
@@ -19,11 +24,46 @@ export default function Header() {
         style={{
           lineHeight: '1',
         }}>
-        Jan {location.slice(1)}
+        {dateText}
       </h1>
-      <h2 style={{ fontWeight: 'normal', fontSize: '1rem' }}>{prompts[location]}</h2>
+      <h2 style={{ fontWeight: 'normal', fontSize: '1rem' }}>{description}</h2>
     </div>
   )
+}
+
+const useTypewriter = (text, delay = 0, speed = 50) => {
+  const [displayText, setDisplayText] = useState('')
+  const [started, setStarted] = useState(false)
+
+  useEffect(() => {
+    setStarted(false)
+    setDisplayText('')
+
+    const startTimeout = setTimeout(() => {
+      setStarted(true)
+    }, delay)
+    return () => clearTimeout(startTimeout)
+  }, [delay, text])
+
+  useEffect(() => {
+    if (!started) return
+
+    let i = 0
+    const typingInterval = setInterval(() => {
+      if (i < text.length) {
+        setDisplayText(text.substr(0, i + 1))
+        i++
+      } else {
+        clearInterval(typingInterval)
+      }
+    }, speed)
+
+    return () => {
+      clearInterval(typingInterval)
+    }
+  }, [text, speed, started])
+
+  return displayText
 }
 
 const prompts = {
@@ -37,8 +77,7 @@ const prompts = {
   '/8': 'Draw one million of something.',
   '/9': 'The textile design patterns of public transport seating.',
   '/10': 'You can only use TAU in your code, no other number allowed.',
-  '/11':
-    'Impossible day - Try to do something that feels impossible for you to do. Maybe it is impossible. Maybe it’s too ambitious. Maybe it’s something you know nothing about how to accomplish.',
+  '/11': 'Impossible day - Try to do something that feels impossible for you to do.',
   '/12': 'Subdivision.',
   '/13': 'Triangles and nothing else.',
   '/14': 'Pure black and white. No gray.',
