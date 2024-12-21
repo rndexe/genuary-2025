@@ -1,6 +1,6 @@
 // import { Html } from '@react-three/drei'
 import { lazy, Suspense } from 'react'
-import Loader from './Loader.jsx'   
+import Loader from './Loader.jsx'
 
 const modules = import.meta.glob('../dates/*.jsx')
 
@@ -21,9 +21,11 @@ function lazyImport(path) {
 }
 
 export default function getPages() {
-  const pages = []
+  const pages = {}
   for (const sketch in modules) {
-    pages.push(lazyImport(sketch))
+    const index = sketch.substring(sketch.lastIndexOf('/') + 1, sketch.lastIndexOf('.'))
+    pages[index - 1] = lazyImport(sketch)
   }
+  console.log(pages)
   return pages
 }

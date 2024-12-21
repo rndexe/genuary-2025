@@ -8,15 +8,15 @@ export default function Nav({ pages }) {
         display: 'flex',
         gap: '0.5rem',
         width: '100%',
-        margin: 'auto',
+        paddingInline: '0.5rem',
         bottom: '0.5rem',
         fontSize: '2rem',
         overflowX: 'auto',
-        scrollbarWidth:'none'
+        scrollbarWidth: 'none',
       }}>
-      {Array.from({ length: pages.length }).map((v, i) => {
+      {Object.keys(pages).map((v, i) => {
         return (
-          <Link to={i + 1} key={i} style={{ textDecoration: 'none' }}>
+          <Link to={parseInt(v) + 1} key={i} style={{ textDecoration: 'none' }}>
             <div
               style={{
                 aspectRatio: 16 / 9,
@@ -26,7 +26,9 @@ export default function Nav({ pages }) {
                 display: 'grid',
                 border: '1px solid white',
               }}>
-              <span style={{ placeSelf: 'center', fontFamily: 'monospace', fontStyle:'normal', fontSize:'1.25rem' }}>{i + 1}</span>{' '}
+              <span style={{ placeSelf: 'center', fontFamily: 'monospace', fontStyle: 'normal', fontSize: '1.25rem' }}>
+                {parseInt(v) + 1}
+              </span>
             </div>
           </Link>
         )
