@@ -12,16 +12,19 @@ export default function Header() {
       style={{
         display: 'flex',
         flexDirection: 'column',
-        gap: '1rem',
+        gap: 'clamp(0.25rem, 0.0526rem + 0.7895vw, 1rem)',
         fontFamily: 'monospace',
         color: 'whitesmoke',
         position: 'absolute',
         top: '2rem',
         left: '2rem',
-        maxWidth: '16rem',
+        maxWidth: '24rem',
+        zIndex: '1000',
+        // maxWidth: '16rem',
       }}>
       <h1
         style={{
+          fontSize: 'clamp(1.25rem, 1.0526rem + 0.7895vw, 2rem)',
           lineHeight: '1',
         }}>
         {dateText}
