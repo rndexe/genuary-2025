@@ -26,6 +26,5 @@ export default function getPages() {
     const index = sketch.substring(sketch.lastIndexOf('/') + 1, sketch.lastIndexOf('.'))
     pages[index - 1] = lazyImport(sketch)
   }
-  console.log(pages)
   return pages
 }
