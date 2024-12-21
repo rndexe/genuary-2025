@@ -13,6 +13,8 @@ export default function Cone(props) {
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <>
+      <ambientLight intensity={Math.PI / 2} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
       <mesh
         {...props}
         ref={ref}

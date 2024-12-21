@@ -14,15 +14,19 @@ export default function Torus(props) {
   })
   // Return the view, these are regular Threejs elements expressed in JSX
   return (
-    <mesh
-      {...props}
-      ref={ref}
-      scale={clicked ? 1.5 : 1}
-      onClick={(event) => click(!clicked)}
-      onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-      onPointerOut={(event) => hover(false)}>
-      <torusGeometry />
-      <meshStandardMaterial color={hovered ? 'hotpink' : 'grey'} />
-    </mesh>
+    <>
+      <ambientLight intensity={Math.PI / 2} />
+      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
+      <mesh
+        {...props}
+        ref={ref}
+        scale={clicked ? 1.5 : 1}
+        onClick={(event) => click(!clicked)}
+        onPointerOver={(event) => (event.stopPropagation(), hover(true))}
+        onPointerOut={(event) => hover(false)}>
+        <torusGeometry />
+        <meshStandardMaterial color={hovered ? 'hotpink' : 'grey'} />
+      </mesh>
+    </>
   )
 }
