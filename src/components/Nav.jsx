@@ -9,9 +9,10 @@ export default function Nav({ pages }) {
         gap: '0.5rem',
         width: '100%',
         margin: 'auto',
-        justifyContent: 'center',
         bottom: '0.5rem',
         fontSize: '2rem',
+        overflowX: 'auto',
+        scrollbarWidth:'none'
       }}>
       {Array.from({ length: pages.length }).map((v, i) => {
         return (
