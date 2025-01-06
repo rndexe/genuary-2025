@@ -5,7 +5,7 @@ export default function Nav({ pages }) {
     <div
       style={{
         position: 'absolute',
-        display: 'flex',
+        display: 'none',
         gap: '0.5rem',
         width: '100%',
         paddingInline: '0.5rem',

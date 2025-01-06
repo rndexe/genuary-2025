@@ -15,8 +15,6 @@ export default function Experience({ pages }) {
           <Redirect to="1" replace />
         </Route>
       </Switch>
-      <OrbitControls />
-      <Environment preset="night" />
     </Canvas>
   )
 }
