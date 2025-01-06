@@ -1,5 +1,4 @@
 import { Redirect, Route, Switch, useLocation } from 'wouter'
-import { OrbitControls, Environment} from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Perf } from 'r3f-perf'
 
