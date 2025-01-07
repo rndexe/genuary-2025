@@ -2,8 +2,10 @@ import { Instance, Instances, useTexture } from '@react-three/drei'
 import { useMemo, useRef } from 'react'
 import { MathUtils } from 'three'
 import { useFrame } from '@react-three/fiber'
+import { useResetCamera } from '../utils'
 
 export default function Layers(props) {
+  useResetCamera()
   return (
     <>
       <Mover />

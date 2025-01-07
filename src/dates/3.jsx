@@ -4,18 +4,17 @@ import { useRef } from 'react'
 import { dampE } from 'maath/easing'
 import { MeshStandardMaterial, SphereGeometry } from 'three'
 
-const sg = new SphereGeometry()
-const msm = new MeshStandardMaterial({ color: 'black', roughness: 0.1 })
-
 export default function _42(props) {
+  const sg = new SphereGeometry()
+  const msm = new MeshStandardMaterial({ color: 'black', roughness: 0.1 })
   return (
     <Stage adjustCamera={false} preset={'rembrandt'}>
-      <Face />
+      <Face sg={sg} msm={msm} />
     </Stage>
   )
 }
 
-function Face() {
+function Face({ sg, msm }) {
   const ref = useRef()
   const eyes = useRef()
   useFrame((state, delta) => {

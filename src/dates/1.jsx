@@ -7,10 +7,13 @@ import { extend } from '@react-three/fiber'
 import { useEffect, useRef, useState } from 'react'
 import { random } from 'maath'
 import { MathUtils } from 'three'
+import { useResetCamera } from '../utils'
 
 extend({ UnrealBloomPass })
 
 export default function Lines(props) {
+  useResetCamera()
+
   const n = 10
   const lines = Array.from({ length: 2 * n + 1 }, (_, i) => 10 * (i - n))
   return (
