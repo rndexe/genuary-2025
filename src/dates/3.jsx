@@ -1,31 +1,43 @@
-import { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { MeshDistortMaterial, Stage } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { useRef } from 'react'
+import { dampE } from 'maath/easing'
+import { MeshStandardMaterial, SphereGeometry } from 'three'
 
-export default function Sphere(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => {
-    ref.current.position.y = 0.5 * Math.sin(state.clock.getElapsedTime())
-  })
-  // Return the view, these are regular Threejs elements expressed in JSX
+const sg = new SphereGeometry()
+const msm = new MeshStandardMaterial({ color: 'black', roughness: 0.1 })
+
+export default function _42(props) {
   return (
-    <>
-      <ambientLight intensity={Math.PI / 2} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-      <mesh
-        {...props}
-        ref={ref}
-        scale={clicked ? 1.5 : 1}
-        onClick={(event) => click(!clicked)}
-        onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-        onPointerOut={(event) => hover(false)}>
-        <sphereGeometry />
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'green'} />
+    <Stage adjustCamera={false} preset={'rembrandt'}>
+      <Face />
+    </Stage>
+  )
+}
+
+function Face() {
+  const ref = useRef()
+  const eyes = useRef()
+  useFrame((state, delta) => {
+    dampE(ref.current.rotation, [-state.pointer.y, state.pointer.x, 0], 0.25, delta)
+  })
+
+  return (
+    <group
+      ref={ref}
+      onPointerOver={() => {
+        eyes.current.scale.set(0.1, 0.05, 0.1)
+      }}
+      onPointerLeave={() => {
+        eyes.current.scale.set(0.1, 0.1, 0.1)
+      }}>
+      <mesh geometry={sg}>
+        <MeshDistortMaterial distort={0.4} speed={2} />
       </mesh>
-    </>
+      <group ref={eyes} position={[0, 0.25, 1]} scale={0.1}>
+        <mesh position={[-3, 0, 0]} geometry={sg} material={msm} />
+        <mesh position={[3, 0, 0]} geometry={sg} material={msm} />
+      </group>
+    </group>
   )
 }
