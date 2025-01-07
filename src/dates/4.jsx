@@ -1,32 +1,39 @@
-import { useRef, useState } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Environment, OrbitControls, Sphere, MeshDistortMaterial, Torus } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { useRef, useMemo, useEffect } from 'react'
+import { useResetCamera } from '../utils'
+import { Vector3 } from 'three'
 
-export default function Torus(props) {
-  // This reference gives us direct access to the THREE.Mesh object
-  const ref = useRef()
-  // Hold state for hovered and clicked events
-  const [hovered, hover] = useState(false)
-  const [clicked, click] = useState(false)
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => {
-    ref.current.rotation.x += delta
-    ref.current.rotation.y += delta
+export default function Black(props) {
+  const ref1 = useRef()
+  const ref2 = useRef()
+  const ref3 = useRef()
+
+  useResetCamera(new Vector3(-Math.PI, 1, -Math.PI))
+  useFrame((state, delta)=>{
+    ref1.current.rotateZ(delta*0.01)
+    ref2.current.rotateZ(delta*0.02)
+    ref2.current.rotateZ(delta*0.03)
+    // console.log(state.camera.position)
   })
-  // Return the view, these are regular Threejs elements expressed in JSX
   return (
     <>
-      <ambientLight intensity={Math.PI / 2} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
-      <mesh
-        {...props}
-        ref={ref}
-        scale={clicked ? 1.5 : 1}
-        onClick={(event) => click(!clicked)}
-        onPointerOver={(event) => (event.stopPropagation(), hover(true))}
-        onPointerOut={(event) => hover(false)}>
-        <torusGeometry />
-        <meshStandardMaterial color={hovered ? 'hotpink' : 'grey'} />
-      </mesh>
+      <Torus position-z={-1} ref={ref1}>
+        <MeshDistortMaterial roughness={0} color={'#121212'} metalness={1} distort={0.5} />
+      </Torus>
+      <Torus scale={2.5} position-z={0} ref={ref2}>
+        <MeshDistortMaterial roughness={0} color={'#121212'} metalness={1} distort={0.5} />
+      </Torus>
+      <Torus scale={4} position-z={1} ref={ref3}>
+        <MeshDistortMaterial roughness={0} color={'#121212'} metalness={1} distort={0.5} />
+      </Torus>
+      <Environment
+        preset="night"
+        background
+        backgroundBlurriness={0.9}
+        backgroundIntensity={0.01}
+        backgroundRotation={0.5}
+      />
     </>
   )
 }
