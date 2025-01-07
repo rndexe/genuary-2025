@@ -1,6 +1,8 @@
 import { Backdrop, Float, Text3D, Center } from '@react-three/drei'
+import { useResetCamera } from '../utils'
 
 export default function WIP() {
+  useResetCamera()
   return (
     <>
       <ambientLight intensity={Math.PI / 8} />
