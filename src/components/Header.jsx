@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react'
 export default function Header() {
   const [location] = useLocation()
 
-  const dateText = useTypewriter(`Jan ${location.slice(1)}`, 0, 50)
-  const description = useTypewriter(prompts[location], 500, 50)
+  const dateText = useTypewriter(`Jan ${location.slice(1)}`, 0, 25)
+  const description = useTypewriter(prompts[location], 250, 25)
 
   return (
     <div
@@ -29,7 +29,7 @@ export default function Header() {
         }}>
         {dateText}
       </h1>
-      <h2 style={{ fontWeight: 'normal', fontSize: '1rem' }}>{description}</h2>
+      <h2 style={{ fontWeight: 'normal', fontSize: '1rem', whiteSpace: 'pre-line' }}>{description}</h2>
     </div>
   )
 }
@@ -74,7 +74,7 @@ const prompts = {
   '/2': 'Layers upon layers upon layers.',
   '/3': 'Exactly 42 lines of code.',
   '/4': 'Black on black.',
-  '/5': 'Isometric Art - (No vanishing points).',
+  '/5': 'Isometric Art - (No vanishing points).\n\nDrag to rotate.',
   '/6': 'Make a landscape using only primitive shapes.',
   '/7': 'Use software that is not intended to create art or images.',
   '/8': 'Draw one million of something.',

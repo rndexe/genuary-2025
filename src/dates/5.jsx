@@ -12,6 +12,7 @@ export default function Isometric() {
   const light = useRef()
   useFrame((state, delta) => {
     light.current.intensity = Math.PI * (1 + Math.abs(Math.sin(2* state.clock.getElapsedTime())))
+    
   })
   return (
     <>
@@ -38,9 +39,11 @@ export default function Isometric() {
 
       <OrbitControls
         makeDefault
+        minAzimuthAngle={0}
+        maxAzimuthAngle={Math.PI/2}
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 2}
-        enableZoom={true}
+        enableZoom={false}
         enablePan={false}
       />
 

@@ -4,10 +4,9 @@ import { Effects as EffectComposer, PerspectiveCamera } from '@react-three/drei'
 import { UnrealBloomPass } from 'three-stdlib'
 
 import { extend } from '@react-three/fiber'
-import { useEffect, useRef, useState } from 'react'
+import {  useRef, useState } from 'react'
 import { random } from 'maath'
 import { MathUtils } from 'three'
-import { useResetCamera } from '../utils'
 
 extend({ UnrealBloomPass })
 
