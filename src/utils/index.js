@@ -11,6 +11,7 @@ export function useResetCamera(startPos) {
 
     return () => {
       camera.position.set(0, 0, 5)
+      camera.lookAt(0, 0, 0)
     }
   }, [])
 }
