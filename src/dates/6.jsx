@@ -1,5 +1,8 @@
-import WIP from '../components/WIP'
-
-export default function Placeholder() {
-  return <WIP />
+export default function Landscape() {
+  return (
+    <mesh>
+      <coneGeometry />
+      <meshStandardMaterial />
+    </mesh>
+  )
 }

@@ -26,7 +26,7 @@ export default function Lines(props) {
         })}
       </group>
       <EffectComposer disableGammaPass>
-        <unrealBloomPass strength={3} radius={1} threshold={0.1} />
+        <unrealBloomPass strength={1} radius={1.5} threshold={0.1} />
       </EffectComposer>
       <PerspectiveCamera makeDefault/>
       <CameraRig />
