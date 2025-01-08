@@ -1,15 +1,14 @@
-import { Instance, Instances, useTexture } from '@react-three/drei'
+import { Instance, Instances, PerspectiveCamera, useTexture } from '@react-three/drei'
 import { useMemo, useRef } from 'react'
 import { MathUtils } from 'three'
 import { useFrame } from '@react-three/fiber'
-import { useResetCamera } from '../utils'
 
 export default function Layers(props) {
-  useResetCamera()
   return (
     <>
       <Mover />
       <CameraRig />
+      <PerspectiveCamera makeDefault />
     </>
   )
 }
@@ -19,7 +18,7 @@ function Mover() {
   const ref2 = useRef()
 
   const speed = 2,
-    s = 20
+    s = 10
   useFrame((state, delta) => {
     ref1.current.position.z += speed * delta
     ref2.current.position.z += speed * delta

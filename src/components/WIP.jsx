@@ -1,8 +1,7 @@
-import { Backdrop, Float, Text3D, Center } from '@react-three/drei'
+import { Backdrop, Float, Text3D, Center, PerspectiveCamera } from '@react-three/drei'
 import { useResetCamera } from '../utils'
 
 export default function WIP() {
-  useResetCamera()
   return (
     <>
       <ambientLight intensity={Math.PI / 8} />
@@ -21,6 +20,7 @@ export default function WIP() {
       <Backdrop receiveShadow={true} floor={2} position={[0, -0.5, -3]} scale={[50, 10, 4]}>
         <meshStandardMaterial color="#353540" envMapIntensity={0.1} />
       </Backdrop>
+      <PerspectiveCamera makeDefault position={[0, 0, 8]} />
     </>
   )
 }

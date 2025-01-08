@@ -1,6 +1,6 @@
 import { useFrame } from '@react-three/fiber'
 
-import { Effects as EffectComposer } from '@react-three/drei'
+import { Effects as EffectComposer, PerspectiveCamera } from '@react-three/drei'
 import { UnrealBloomPass } from 'three-stdlib'
 
 import { extend } from '@react-three/fiber'
@@ -12,7 +12,6 @@ import { useResetCamera } from '../utils'
 extend({ UnrealBloomPass })
 
 export default function Lines(props) {
-  useResetCamera()
 
   const n = 10
   const lines = Array.from({ length: 2 * n + 1 }, (_, i) => 10 * (i - n))
@@ -30,6 +29,7 @@ export default function Lines(props) {
       <EffectComposer disableGammaPass>
         <unrealBloomPass strength={3} radius={1} threshold={0.1} />
       </EffectComposer>
+      <PerspectiveCamera makeDefault/>
       <CameraRig />
     </>
   )
@@ -68,6 +68,6 @@ function Line({ color, pos }) {
 
 function CameraRig() {
   useFrame((state) => {
-    state.camera.position.lerp({ x: state.pointer.x * 20, y: 1.5 + state.pointer.y * 20, z: 8 }, 0.1)
+    state.camera.position.lerp({ x: state.pointer.x * 20, y: 1.5 + state.pointer.y * 20, z: 100 }, 0.1)
   })
 }
