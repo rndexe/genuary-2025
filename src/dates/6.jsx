@@ -1,13 +1,7 @@
-import { BakeShadows, Environment, OrbitControls, SoftShadows } from '@react-three/drei'
-import { OrthographicCamera, Sphere } from '@react-three/drei'
-import { useThree } from '@react-three/fiber'
-import { useEffect } from 'react'
+import { BakeShadows, Environment, OrbitControls } from '@react-three/drei'
+import { OrthographicCamera } from '@react-three/drei'
 
 export default function Landscape() {
-  const { gl } = useThree()
-  useEffect(() => {
-    // console.log(gl.shadowMap)
-  }, [])
   return (
     <>
       {/* <ambientLight intensity={0.1} /> */}
@@ -39,7 +33,15 @@ export default function Landscape() {
       <OrthographicCamera makeDefault position={[50, 43.3, 50]} zoom={8} />
       <Environment preset="forest" />
       <BakeShadows />
-      <OrbitControls />
+      <OrbitControls
+        makeDefault
+        minAzimuthAngle={0}
+        maxAzimuthAngle={Math.PI / 2}
+        minPolarAngle={Math.PI / 3}
+        maxPolarAngle={Math.PI / 2}
+        enableZoom={false}
+        enablePan={false}
+      />
     </>
   )
 }
