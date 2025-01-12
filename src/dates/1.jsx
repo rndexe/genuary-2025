@@ -1,39 +1,43 @@
+import { useRef, useState, useMemo, useEffect } from 'react'
+import { CylinderGeometry, MathUtils } from 'three'
+import { extend } from '@react-three/fiber'
 import { useFrame } from '@react-three/fiber'
-
 import { Effects as EffectComposer, PerspectiveCamera } from '@react-three/drei'
 import { UnrealBloomPass } from 'three-stdlib'
-
-import { extend } from '@react-three/fiber'
-import {  useRef, useState } from 'react'
 import { random } from 'maath'
-import { MathUtils } from 'three'
 
 extend({ UnrealBloomPass })
-
 export default function Lines(props) {
-
   const n = 10
   const lines = Array.from({ length: 2 * n + 1 }, (_, i) => 10 * (i - n))
+  const cylinderGeometry = useMemo(() => new CylinderGeometry(0.5, 0.5, 50, 32, 15), [])
+
+  useEffect(() => {
+    return () => {
+      cylinderGeometry.dispose()
+    }
+  }, [cylinderGeometry])
+
   return (
     <>
       <ambientLight intensity={0.5 * Math.PI} />
 
       <group>
         {lines.map((v, i) => {
-          if (i % 3 == 0) return <Line color={'fuchsia'} pos={v} key={i} />
-          else if (i % 3 == 2) return <Line color={'yellow'} pos={v} key={i} />
-          else return <Line color={'cyan'} pos={v} key={i} />
+          if (i % 3 == 0) return <Line color={'fuchsia'} pos={v} key={i} geom={cylinderGeometry} />
+          else if (i % 3 == 2) return <Line color={'yellow'} pos={v} key={i} geom={cylinderGeometry} />
+          else return <Line color={'cyan'} pos={v} key={i} geom={cylinderGeometry} />
         })}
       </group>
       <EffectComposer disableGammaPass>
         <unrealBloomPass strength={1} radius={1.5} threshold={0.1} />
       </EffectComposer>
-      <PerspectiveCamera makeDefault/>
+      <PerspectiveCamera makeDefault />
       <CameraRig />
     </>
   )
 }
-function Line({ color, pos }) {
+function Line({ color, pos, geom }) {
   const ref = useRef()
   const intensity = useRef(2)
   const [flash] = useState(
@@ -57,8 +61,7 @@ function Line({ color, pos }) {
 
   return (
     <>
-      <mesh ref={ref} rotation-y={Math.PI / 2} position={[pos, 0, -100]}>
-        <cylinderGeometry args={[0.5, 0.5, 50, 32, 15]} />
+      <mesh ref={ref} rotation-y={Math.PI / 2} position={[pos, 0, -100]} geometry={geom}>
         <meshStandardMaterial emissive={color} color={'black'} emissiveIntensity={2} toneMapped={false} />
       </mesh>
     </>

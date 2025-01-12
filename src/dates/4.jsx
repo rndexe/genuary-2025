@@ -1,4 +1,4 @@
-import { Environment, MeshDistortMaterial, PerspectiveCamera, Sphere, Torus } from '@react-three/drei'
+import { Environment, MeshDistortMaterial, PerspectiveCamera, Torus } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useRef } from 'react'
 import { dampE } from 'maath/easing'
@@ -23,9 +23,10 @@ export default function Black(props) {
   return (
     <>
       <group ref={ref}>
-        <Sphere position-z={0} ref={ref1}>
+        <mesh position-z={0} ref={ref1}>
+          <sphereGeometry/>
           <MeshDistortMaterial roughness={0} color={'#121212'} metalness={1} distort={0.5} />
-        </Sphere>
+        </mesh>
         <Torus scale={2.5} position-z={0} ref={ref2}>
           <MeshDistortMaterial roughness={0} color={'#121212'} metalness={1} distort={0.5} />
         </Torus>

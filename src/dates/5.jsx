@@ -1,18 +1,17 @@
 // import WIP from '../components/WIP'
 
-import { Addition, Base, Geometry, Subtraction } from '@react-three/csg'
+import { Base, Geometry, Subtraction } from '@react-three/csg'
 import { OrbitControls, OrthographicCamera, Sphere } from '@react-three/drei'
-import { BakeShadows, SoftShadows, Environment } from '@react-three/drei'
+import { Environment } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 const colorPallette = { dark: '#64748b', light: '#cbd5e1' }
 
 export default function Isometric() {
   const light = useRef()
   useFrame((state, delta) => {
-    light.current.intensity = Math.PI * (1 + Math.abs(Math.sin(2* state.clock.getElapsedTime())))
-    
+    light.current.intensity = Math.PI * (1 + Math.abs(Math.sin(2 * state.clock.getElapsedTime())))
   })
   return (
     <>
@@ -40,7 +39,7 @@ export default function Isometric() {
       <OrbitControls
         makeDefault
         minAzimuthAngle={0}
-        maxAzimuthAngle={Math.PI/2}
+        maxAzimuthAngle={Math.PI / 2}
         minPolarAngle={Math.PI / 3}
         maxPolarAngle={Math.PI / 2}
         enableZoom={false}
@@ -92,8 +91,8 @@ function Pathway() {
 
 function Spire(props) {
   return (
-    <group {...props} >
-      <mesh receiveShadow scale={[0.5, 40, 0.5]}  position-y={-20 + 0.5}>
+    <group {...props}>
+      <mesh receiveShadow scale={[0.5, 40, 0.5]} position-y={-20 + 0.5}>
         <boxGeometry />
         <meshStandardMaterial color={colorPallette.light} />
       </mesh>

@@ -1,18 +1,25 @@
 import { MeshDistortMaterial, PerspectiveCamera, Stage } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import { dampE } from 'maath/easing'
 import { MeshStandardMaterial, SphereGeometry } from 'three'
 
 export default function _42(props) {
-  const sg = new SphereGeometry()
-  const msm = new MeshStandardMaterial({ color: 'black', roughness: 0.1 })
+  const sg = useMemo(() => new SphereGeometry(), [])
+  const msm = useMemo(() => new MeshStandardMaterial({ color: 'black', roughness: 0.1 }), [])
+
+  useEffect(() => {
+    return () => {
+      sg.dispose()
+      msm.dispose()
+    }
+  }, [])
   return (
     <>
-    <Stage adjustCamera={false} preset={'rembrandt'}>
-      <Face sg={sg} msm={msm} />
-    </Stage>
-    <PerspectiveCamera makeDefault position={[0,0,8]}/>
+      <Stage adjustCamera={false} preset={'rembrandt'}>
+        <Face sg={sg} msm={msm} />
+      </Stage>
+      <PerspectiveCamera makeDefault position={[0, 0, 8]} />
     </>
   )
 }
@@ -40,7 +47,6 @@ function Face({ sg, msm }) {
         <mesh position={[-3, 0, 0]} geometry={sg} material={msm} />
         <mesh position={[3, 0, 0]} geometry={sg} material={msm} />
       </group>
-
     </group>
   )
 }

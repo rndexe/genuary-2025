@@ -1,4 +1,4 @@
-import { BakeShadows, Environment, OrbitControls } from '@react-three/drei'
+import { Environment, OrbitControls } from '@react-three/drei'
 import { OrthographicCamera } from '@react-three/drei'
 
 export default function Landscape() {
@@ -32,7 +32,6 @@ export default function Landscape() {
       <Sun />
       <OrthographicCamera makeDefault position={[50, 43.3, 50]} zoom={8} />
       <Environment preset="forest" />
-      <BakeShadows />
       <OrbitControls
         makeDefault
         minAzimuthAngle={0}
